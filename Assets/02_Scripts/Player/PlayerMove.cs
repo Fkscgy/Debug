@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     const string IDLE_DOWN = "CharIdleDown";
     const string IDLE_DIAGONAL = "CharIdleDiagonal";
     const string RUN_RIGHT = "CharRunRight";
+    const string RUN_DOWN = "CharRunDown";
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -47,7 +48,7 @@ public class PlayerMove : MonoBehaviour
         if(angle > 60 && angle < 110.5)
         {
             facingDir = 1;
-            if(movement.x == 0)
+            if(movement == Vector2.zero)
             {
                 ChangeAnimationState(IDLE_UP);
             }
@@ -57,7 +58,7 @@ public class PlayerMove : MonoBehaviour
         else if (angle > 40 && angle < 60 || angle > 125 && angle < 145)
         {
             facingDir = 2;
-            if (movement.x == 0)
+            if (movement == Vector2.zero)
             {
                 ChangeAnimationState(IDLE_DIAGONAL);
             }
@@ -66,7 +67,7 @@ public class PlayerMove : MonoBehaviour
         else if (angle > -45 && angle < 40 || angle > 145 && angle < 180 || angle > -135 && angle < -180)
         {
             facingDir = 3;
-            if (movement.x == 0)
+            if (movement == Vector2.zero)
             {
                 ChangeAnimationState(IDLE_RIGHT);
             }
@@ -75,15 +76,20 @@ public class PlayerMove : MonoBehaviour
         else if (angle > -135 && angle < -45)
         {
             facingDir = 4;
-            if (movement.x == 0)
+            if (movement == Vector2.zero)
             {
                 ChangeAnimationState(IDLE_DOWN);
             }
         }
 
-        if (movement.x != 0)
+        if (movement.x != 0 && movement.y == 0)
         {
             ChangeAnimationState(RUN_RIGHT);
+        }
+
+        if (movement.x == 0 && movement.y != 0)
+        {
+            ChangeAnimationState(RUN_DOWN);
         }
 
         lookDir = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;
@@ -144,7 +150,7 @@ public class PlayerMove : MonoBehaviour
 
     void ChangeAnimationState(string newState)
     {
-        if (currentState == newState) return;
+        //if (currentState == newState) return;
         anim.Play(newState);
         currentState = newState;
     }
