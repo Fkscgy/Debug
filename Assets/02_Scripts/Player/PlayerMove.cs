@@ -34,6 +34,8 @@ public class PlayerMove : MonoBehaviour
     const string IDLE_DIAGONAL = "CharIdleDiagonal";
     const string RUN_RIGHT = "CharRunRight";
     const string RUN_DOWN = "CharRunDown";
+    const string RUN_UP = "CharRunUp";
+    const string RUN_DIG = "CharRunDig";
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,7 +54,11 @@ public class PlayerMove : MonoBehaviour
             {
                 ChangeAnimationState(IDLE_UP);
             }
-            
+
+            if (movement != new Vector2(0,0))
+            {
+                ChangeAnimationState(RUN_UP);
+            }
         }
 
         else if (angle > 40 && angle < 60 || angle > 125 && angle < 145)
@@ -61,6 +67,11 @@ public class PlayerMove : MonoBehaviour
             if (movement == Vector2.zero)
             {
                 ChangeAnimationState(IDLE_DIAGONAL);
+            }
+
+            if (movement != new Vector2(0, 0))
+            {
+                ChangeAnimationState(RUN_DIG);
             }
         }
 
@@ -71,8 +82,13 @@ public class PlayerMove : MonoBehaviour
             {
                 ChangeAnimationState(IDLE_RIGHT);
             }
-        }
 
+             if (movement != new Vector2(0, 0))
+            {
+                ChangeAnimationState(RUN_RIGHT);
+            }
+        }
+           
         else if (angle > -135 && angle < -45)
         {
             facingDir = 4;
@@ -80,16 +96,11 @@ public class PlayerMove : MonoBehaviour
             {
                 ChangeAnimationState(IDLE_DOWN);
             }
-        }
 
-        if (movement.x != 0 && movement.y == 0)
-        {
-            ChangeAnimationState(RUN_RIGHT);
-        }
-
-        if (movement.x == 0 && movement.y != 0)
-        {
-            ChangeAnimationState(RUN_DOWN);
+            if (movement != new Vector2(0, 0))
+            {
+                ChangeAnimationState(RUN_DOWN);
+            }
         }
 
         lookDir = cam.ScreenToWorldPoint(Input.mousePosition) - transform.position;

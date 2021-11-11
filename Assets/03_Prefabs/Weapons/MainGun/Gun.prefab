@@ -100,7 +100,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   firePoint: {fileID: 8491177745701629025}
   bulletPrefab: {fileID: 3937840606445967404, guid: c0ba33cc1be5e90459220ca0c4c07499, type: 3}
-  StartTimeToShoot: 0.4
+  StartTimeToShoot: 0.25
   bulletSpeed: 20
   player: {fileID: 0}
   playerScript: {fileID: 0}

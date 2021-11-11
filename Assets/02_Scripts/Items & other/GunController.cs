@@ -27,6 +27,7 @@ public class GunController : MonoBehaviour
             {
                 Shoot();
                 timeToShoot = StartTimeToShoot;
+                FindObjectOfType<AudioManager>().Play("Shoot");
             }
         }
 
@@ -45,7 +46,6 @@ this.transform.position = GameObject.Find("WeaponHolder").transform.position;
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
-        
     }
 
 
